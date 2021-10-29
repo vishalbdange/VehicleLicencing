@@ -10,7 +10,10 @@ import {
   CLEAR_FILTER,
   VEHICLE_ERROR,
   GET_VEHICLES,
-  CLEAR_VEHICLES
+  CLEAR_VEHICLES,
+  SET_ALERT,
+  CLEAR_ERRORS,
+  VEHICLE_ERROR_CLEAR
 } from './types';
 
 // Get vehicle
@@ -34,7 +37,8 @@ export const addVehicle = vehicle => async dispatch => {
     const res = await axios.post('/api/vehicles', vehicle, config);
     dispatch({ type: ADD_VEHICLE, payload: res.data });
   } catch (error) {
-    dispatch({ type: VEHICLE_ERROR, payload: error.response.msg });
+    console.log( error.response.data)
+    dispatch({ type: VEHICLE_ERROR, payload: error.response.data.msg });
   }
 };
 
@@ -92,3 +96,7 @@ export const filterVehicle = text => dispatch => {
 export const clearFilter = () => dispatch => {
   dispatch({ type: CLEAR_FILTER });
 };
+
+export const clearVehicleErrors = ()=>dispatch=>{
+  dispatch({type:VEHICLE_ERROR_CLEAR})
+}

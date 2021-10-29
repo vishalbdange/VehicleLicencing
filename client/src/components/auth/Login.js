@@ -1,29 +1,25 @@
 import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router";
 import { setAlert } from "../../actions/alertAction";
 import { clearErrors, login } from "../../actions/authAction";
-import { getVehicles } from "../../actions/vehicleAction";
-import { connect } from "react-redux";
+// import { connect } from "react-redux";
 
-const Login = ({
-  setAlert,
-  clearErrors,
-  login,
-  error,
-  isAuthenticated,
-  history,
-  getVehicles
-}) => {
+const Login =() => {
+  const dispatch = useDispatch()
+  const auth = useSelector(state=>state.auth)
+  const history = useHistory()
   useEffect(() => {
-    if (isAuthenticated) {
+    if (auth.isAuthenticated) {
       history.push("/vehicles");
     }
-    if (error === "Invalid Credentials") {
-      console.log(error);
-      setAlert(error, "danger");
-      clearErrors();
+    if (auth.error === "Invalid Credentials") {
+      console.log(auth.error);
+      dispatch(setAlert(auth.error, "danger"));
+      dispatch(clearErrors());
     }
     // eslint-disable-next-line
-  }, [error, isAuthenticated, history]);
+  }, [auth, history]);
 
   const [user, setUser] = useState({
     email: "",
@@ -41,12 +37,12 @@ const Login = ({
   const onSubmit = e => {
     e.preventDefault();
     if (email === "" || password === "") {
-      setAlert("Please fill in all fields", "danger");
+      dispatch(setAlert("Please fill in all fields", "danger"));
     } else {
-      login({
+      dispatch(login({
         email,
         password
-      });
+      }));
     }
   };
 
@@ -86,14 +82,5 @@ const Login = ({
   );
 };
 
-const mapStateToProps = state => ({
-  error: state.auth.error,
-  isAuthenticated: state.auth.isAuthenticated
-});
 
-export default connect(mapStateToProps, {
-  setAlert,
-  clearErrors,
-  login,
-  getVehicles
-})(Login);
+export default Login;

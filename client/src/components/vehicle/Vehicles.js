@@ -2,32 +2,40 @@ import React, { Fragment, useEffect } from "react";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import VehicleItem from "./VehicleItem";
 import Spinner from "../layout/Spinner";
-import { connect } from "react-redux";
+import { setAlert } from "../../actions/alertAction";
+import { clearVehicleErrors } from "../../actions/vehicleAction";
+import {useDispatch, useSelector } from "react-redux";
 import { getVehicles } from "../../actions/vehicleAction";
 
-const Vehicles = ({
-  vehicles,
-  filtered,
-  getVehicles,
-  loading,
-  user,
-  isAuthenticated
-}) => {
+const Vehicles = () => {
+  const dispatch = useDispatch()
+  const vehicle = useSelector(state=>state.vehicle)
+  const auth = useSelector(state=>state.auth)
+
   useEffect(() => {
-    getVehicles();
+    if (vehicle.error) {
+      console.log(vehicle.error);
+      dispatch(setAlert(vehicle.error, "danger"));
+      dispatch(clearVehicleErrors());
+    }
+    // eslint-disable-next-line
+  }, [vehicle, history]);
+
+  useEffect(() => {
+    dispatch(getVehicles());
     // eslint-disable-next-line
   }, []);
 
-  if (vehicles !== null && vehicles.length === 0 && !loading) {
+  if (vehicle.vehicles !== null && vehicle.vehicles.length === 0 && !auth.loading) {
     return <h4>Please add a vehicle...</h4>;
   }
 
   return (
     <Fragment>
-      {vehicles !== null && !loading ? (
+      {vehicle.vehicles !== null && !auth.loading ? (
         <TransitionGroup>
-          {filtered !== null
-            ? filtered.map(vehicle => (
+          {vehicle.filtered !== null
+            ? vehicle.filtered.map(vehicle => (
                 <CSSTransition
                   key={vehicle._id}
                   timeout={500}
@@ -36,7 +44,7 @@ const Vehicles = ({
                   <VehicleItem vehicle={vehicle} />
                 </CSSTransition>
               ))
-            : vehicles.map(vehicle => (
+            : vehicle.vehicles.map(vehicle => (
                 <CSSTransition
                   key={vehicle._id}
                   timeout={500}
@@ -53,12 +61,4 @@ const Vehicles = ({
   );
 };
 
-const mapStateToProps = state => ({
-  vehicles: state.vehicle.vehicles,
-  filtered: state.vehicle.filtered,
-  loading: state.vehicle.loading,
-  isAuthenticated: state.auth.isAuthenticated,
-  user: state.auth.user
-});
-
-export default connect(mapStateToProps, { getVehicles })(Vehicles);
+export default Vehicles;

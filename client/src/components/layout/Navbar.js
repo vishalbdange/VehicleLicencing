@@ -1,27 +1,26 @@
 import React, { Fragment, useEffect } from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
-import { connect } from "react-redux";
+// import { connect } from "react-redux";
 import { logout, loadUser } from "../../actions/authAction";
 import { clearVehicles } from "../../actions/vehicleAction";
+import { useDispatch, useSelector } from "react-redux";
 
 const Navbar = ({
   title,
   icon,
-  isAuthenticated,
-  logout,
-  user,
-  clearVehicles,
-  loadUser
+  user
 }) => {
+  const dispatch = useDispatch()
   useEffect(() => {
-    loadUser();
+    dispatch(loadUser());
     // eslint-disable-next-line
   }, []);
+  const auth = useSelector(state=>state.auth)
 
   const onLogout = () => {
-    logout();
-    clearVehicles();
+    dispatch(logout());
+    dispatch(clearVehicles());
   };
 
   const authLinks = (
@@ -58,7 +57,7 @@ const Navbar = ({
       <h1>
         <i className={icon} /> {title}
       </h1>
-      <ul>{isAuthenticated ? authLinks : guestLinks}</ul>
+      <ul>{auth.isAuthenticated ? authLinks : guestLinks}</ul>
     </div>
   );
 };
@@ -73,11 +72,4 @@ Navbar.defaultProps = {
   icon: "fas fa-id-card-alt"
 };
 
-const mapStateToProps = state => ({
-  isAuthenticated: state.auth.isAuthenticated,
-  user: state.auth.user
-});
-
-export default connect(mapStateToProps, { logout, clearVehicles, loadUser })(
-  Navbar
-);
+export default Navbar

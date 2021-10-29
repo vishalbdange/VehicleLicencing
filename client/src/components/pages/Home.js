@@ -2,13 +2,18 @@ import React, { useEffect } from 'react';
 import Vehicles from '../vehicle/Vehicles';
 import VehicleForm from '../vehicle/VehicleForm';
 import VehicleFilter from '../vehicle/VehicleFilter';
-import { connect } from 'react-redux';
+// import { connect } from 'react-redux';
 import { loadUser } from '../../actions/authAction';
+import { useDispatch } from 'react-redux';
 
-const Home = ({ loadUser }) => {
-  useEffect(() => {
-    loadUser();
-  }, [loadUser]);
+const Home = () => {
+  const dispatch = useDispatch()
+  
+  useEffect(()=>{
+    console.log("Hello")
+    dispatch(loadUser())
+  },[])
+
 
   return (
     <div className='grid-2'>
@@ -23,7 +28,4 @@ const Home = ({ loadUser }) => {
   );
 };
 
-export default connect(
-  null,
-  { loadUser }
-)(Home);
+export default Home;

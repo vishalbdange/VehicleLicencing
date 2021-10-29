@@ -1,21 +1,23 @@
 import React, { useRef, useEffect } from 'react';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { filterVehicle, clearFilter } from '../../actions/vehicleAction';
 
-const VehicleFilter = ({ filtered, filterVehicle, clearFilter }) => {
+const VehicleFilter = () => {
+  const vehicle = useSelector(state=>state.vehicle)
+  const dispatch = useDispatch()
   const text = useRef('');
 
   useEffect(() => {
-    if (filtered === null) {
+    if (vehicle.filtered === null) {
       text.current.value = '';
     }
   });
 
   const onChange = e => {
     if (text.current.value !== '') {
-      filterVehicle(e.target.value);
+      dispatch(filterVehicle(e.target.value));
     } else {
-      clearFilter();
+      dispatch(clearFilter());
     }
   };
 
@@ -31,11 +33,5 @@ const VehicleFilter = ({ filtered, filterVehicle, clearFilter }) => {
   );
 };
 
-const mapStateToProps = state => ({
-  filtered: state.vehicle.filtered
-});
 
-export default connect(
-  mapStateToProps,
-  { filterVehicle, clearFilter }
-)(VehicleFilter);
+export default VehicleFilter;
