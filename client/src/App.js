@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React,{useEffect} from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Navbar from "./components/layout/Navbar";
 import Home from "./components/pages/Home";
@@ -17,21 +17,23 @@ if (localStorage.token) {
 }
 
 const App = () => {
+  
   return (
     <Provider store={store}>
       <Router>
-        <Fragment>
+        <React.Fragment>
           <Navbar />
           <div className="container">
             <Alerts />
             <Switch>
-              <Route exact path="/" component={About} />
               <PrivateRoute exact path="/vehicles" component={Home} />
+              <Route exact path="/" component={About} />
+              
               <Route exact path="/register" component={Register} />
               <Route exact path="/login" component={Login} />
             </Switch>
           </div>
-        </Fragment>
+        </React.Fragment>
       </Router>
     </Provider>
   );

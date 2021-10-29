@@ -56,6 +56,12 @@ router.post(
     }
 
     const { inspection } = req.body;
+    console.log(req.body)
+    const veh = await Vehicle.findOne({plateNumber:req.body.plateNumber})
+    if(veh){
+      console.log(veh)
+      return res.status(400).json({msg:"Already Registered Vehicle"})
+    }
 
     try {
       const newVehicle = new Vehicle({
@@ -67,7 +73,7 @@ router.post(
       const vehicle = await newVehicle.save();
       res.json(vehicle);
     } catch (error) {
-      console.log(error);
+      console.log(error.message);
       res.status(500).send("Server Error");
     }
   }

@@ -8,7 +8,8 @@ import {
   FILTER_VEHICLE,
   CLEAR_VEHICLES,
   CLEAR_FILTER,
-  VEHICLE_ERROR
+  VEHICLE_ERROR,
+  VEHICLE_ERROR_CLEAR
 } from '../actions/types';
 
 const initialState = {
@@ -67,6 +68,7 @@ export default (state = initialState, action) => {
         current: null
       };
     case FILTER_VEHICLE:
+      console.log("Filtering")
       return {
         ...state,
         filtered: state.vehicles.filter(vehicle => {
@@ -88,6 +90,11 @@ export default (state = initialState, action) => {
         ...state,
         error: action.payload
       };
+    case VEHICLE_ERROR_CLEAR:
+      return {
+        ...state,
+        error: null
+      }
     default:
       return state;
   }

@@ -1,13 +1,13 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import {
   deleteVehicle,
   setCurrent,
   clearCurrent
 } from '../../actions/vehicleAction';
-import { connect } from 'react-redux';
+import {useDispatch } from 'react-redux';
 
-const VehicleItem = ({ vehicle, deleteVehicle, setCurrent, clearCurrent }) => {
+const VehicleItem = ({vehicle}) => {
+  const dispatch = useDispatch()
   const {
     _id,
     plateNumber,
@@ -19,9 +19,13 @@ const VehicleItem = ({ vehicle, deleteVehicle, setCurrent, clearCurrent }) => {
   } = vehicle;
 
   const onDelete = () => {
-    deleteVehicle(_id);
-    clearCurrent();
+    dispatch(deleteVehicle(_id));
+    dispatch(clearCurrent());
   };
+
+  const onEdit = ()=>{
+    dispatch(setCurrent(vehicle))
+  }
 
   return (
     <div className='card bg-light'>
@@ -64,7 +68,7 @@ const VehicleItem = ({ vehicle, deleteVehicle, setCurrent, clearCurrent }) => {
       <p>
         <button
           className='btn btn-dark btn-sm'
-          onClick={() => setCurrent(vehicle)}>
+          onClick={onEdit}>
           Edit
         </button>
         <button className='btn btn-danger btn-sm' onClick={onDelete}>
@@ -75,11 +79,4 @@ const VehicleItem = ({ vehicle, deleteVehicle, setCurrent, clearCurrent }) => {
   );
 };
 
-VehicleItem.propTypes = {
-  vehicle: PropTypes.object.isRequired
-};
-
-export default connect(
-  null,
-  { deleteVehicle, setCurrent, clearCurrent }
-)(VehicleItem);
+export default VehicleItem;

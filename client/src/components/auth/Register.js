@@ -1,27 +1,30 @@
+import { connect } from "mongoose";
 import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { setAlert } from "../../actions/alertAction";
 import { clearErrors, register } from "../../actions/authAction";
-import { connect } from "react-redux";
+// import { connect } from "react-redux";
 
 const Register = ({
-  setAlert,
-  clearErrors,
-  register,
-  error,
-  isAuthenticated,
   history
 }) => {
+  const dispatch = useDispatch()
+  const auth = useSelector(state=>state.auth)
   useEffect(() => {
-    if (isAuthenticated) {
+    if (auth.isAuthenticated) {
       history.push("/vehicles");
     }
 
-    if (error === "User already exists") {
-      setAlert(error, "danger");
+    if (auth.error === "User already exists") {
+      dispatch(setAlert(auth.error, "danger"));
       clearErrors();
     }
+
+    if(auth.error){
+      dispatch(setAlert(auth.error,"danger"))
+    }
     // eslint-disable-next-line
-  }, [error, isAuthenticated, history]); // want this to run when the error changes
+  }, [history,auth]); // want this to run when the error changes
 
   const [user, setUser] = useState({
     name: "",
@@ -40,11 +43,13 @@ const Register = ({
   const onSubmit = e => {
     e.preventDefault();
     if (name === "" || email === "" || password === "") {
-      setAlert("Please enter all fields", "danger");
+      console.log("Helo")
+      dispatch(setAlert("Please enter all fields", "danger"));
     } else if (password !== password2) {
-      setAlert("Passwords do not match", "danger");
+      dispatch(setAlert("Passwords do not match", "danger"));
     } else {
-      register({ name, email, password });
+      console.log({ name, email, password })
+      dispatch(register({ name, email, password }));
     }
   };
 
@@ -90,11 +95,5 @@ const Register = ({
   );
 };
 
-const mapStateToProps = state => ({
-  error: state.auth.error,
-  isAuthenticated: state.auth.isAuthenticated
-});
 
-export default connect(mapStateToProps, { setAlert, clearErrors, register })(
-  Register
-);
+export default Register;

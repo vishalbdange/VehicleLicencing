@@ -11,18 +11,24 @@ import {
   CLEAR_ERRORS
 } from './types';
 
+
 // Load User
 export const loadUser = () => async dispatch => {
+  console.log(localStorage.token)
+  console.log("Finding User..")
   if (localStorage.token) {
     setAuthToken(localStorage.token);
+    console.log("User found")
   }
   try {
     const res = await axios.get('/api/auth');
+    console.log("Loading User")
     dispatch({ type: USER_LOADED, payload: res.data });
   } catch (err) {
     dispatch({
       type: AUTH_ERROR
     });
+    console.log("Some error")
   }
 };
 
@@ -35,15 +41,17 @@ export const register = formdata => async dispatch => {
   };
   try {
     const res = await axios.post('/api/users', formdata, config);
+    console.log(res.data)
     dispatch({
       type: REGISTER_SUCCESS,
       payload: res.data
     });
     loadUser();
   } catch (err) {
+    console.log(err.response.data.errors[0].msg)
     dispatch({
       type: REGISTER_FAIL,
-      payload: err.response.data.msg
+      payload: err.response.data.errors[0].msg
     });
   }
 };
