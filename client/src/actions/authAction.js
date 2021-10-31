@@ -78,6 +78,24 @@ export const login = formdata => async dispatch => {
   }
 };
 
+export const editProfile = ()=>dispatch=>{
+  const config = {
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  };
+  // try {
+  //   const res = await axios.put(
+  //     `/api/auth/edit`,
+  //     vehicle,
+  //     config
+  //   );
+  //   dispatch({ type: UPDATE_VEHICLE, payload: res.data });
+  // } catch (error) {
+  //   dispatch({ type: VEHICLE_ERROR, payload: error.response.msg });
+  // }
+}
+
 // Logout
 export const logout = () => dispatch => {
   dispatch({
