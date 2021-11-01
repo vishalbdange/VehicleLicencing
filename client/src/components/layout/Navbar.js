@@ -4,14 +4,15 @@ import { Link } from "react-router-dom";
 import { logout, loadUser } from "../../actions/authAction";
 import { clearVehicles } from "../../actions/vehicleAction";
 import { useDispatch, useSelector } from "react-redux";
+import "./Navbar.css";
 
-const Navbar = ({ title, icon, user }) => {
+const Navbar = ({ title, icon }) => {
   const dispatch = useDispatch();
+  const auth = useSelector((state) => state.auth);
   useEffect(() => {
     dispatch(loadUser());
     // eslint-disable-next-line
   }, []);
-  const auth = useSelector((state) => state.auth);
 
   const onLogout = () => {
     dispatch(logout());
@@ -26,13 +27,41 @@ const Navbar = ({ title, icon, user }) => {
         </Link>
       </li>
 
-      <li>Hello {user && user.name}</li>
       <li>
+        <label class="dropdown">
+          <div class="dd-button">Hello {auth.user && auth.user.name}</div>
+
+          <input type="checkbox" class="dd-input" id="test" />
+
+          <ul class="dd-menu">
+            <li>
+              <Link to="/dashboard">Dashboard</Link>
+            </li>
+            <li>
+              <a onClick={onLogout} href="#!">
+                <i className="fas fa-sign-out-alt" />{" "}
+                <span className="hide-sm">Logout</span>
+              </a>
+            </li>
+          </ul>
+        </label>
+        {/* <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+          Hello {auth.user && auth.user.name}
+        </a>
+
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+          <li><a class="dropdown-item" href="#">Dashboar</a></li>
+          <li><a class="dropdown-item" href="#">Logout</a></li>
+          <li><a class="dropdown-item" href="#">Something else here</a></li>
+        </ul> */}
+      </li>
+
+      {/* <li>
         <a onClick={onLogout} href="#!">
           <i className="fas fa-sign-out-alt" />{" "}
           <span className="hide-sm">Logout</span>
         </a>
-      </li>
+      </li> */}
     </Fragment>
   );
 

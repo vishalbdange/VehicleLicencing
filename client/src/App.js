@@ -5,6 +5,7 @@ import Home from "./components/pages/Home";
 import About from "./components/pages/About/About";
 import Register from "./components/auth/Register";
 import Login from "./components/auth/Login";
+import Dashboard from './components/pages/Dashboard'
 import Alerts from "./components/layout/Alerts";
 import setAuthToken from "./utils/setAuthToken";
 import PrivateRoute from "./components/routing/PrivateRoute";
@@ -28,6 +29,7 @@ const App = () => {
               <PrivateRoute exact path="/vehicles" component={Home} />
               <Route exact path="/" component={About} />
               <Route exact path="/register" component={Register} />
+              <PrivateRoute exact path="/dashboard" component={Dashboard}/>
               <Route exact path="/login" component={Login} />
             </Switch>
           </div>
