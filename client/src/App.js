@@ -1,8 +1,8 @@
-import React,{useEffect} from "react";
+import React, { useEffect } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Navbar from "./components/layout/Navbar";
 import Home from "./components/pages/Home";
-import About from "./components/pages/About";
+import About from "./components/pages/About/About";
 import Register from "./components/auth/Register";
 import Login from "./components/auth/Login";
 import Alerts from "./components/layout/Alerts";
@@ -17,7 +17,6 @@ if (localStorage.token) {
 }
 
 const App = () => {
-  
   return (
     <Provider store={store}>
       <Router>
@@ -28,7 +27,6 @@ const App = () => {
             <Switch>
               <PrivateRoute exact path="/vehicles" component={Home} />
               <Route exact path="/" component={About} />
-              
               <Route exact path="/register" component={Register} />
               <Route exact path="/login" component={Login} />
             </Switch>

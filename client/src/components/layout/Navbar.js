@@ -1,22 +1,17 @@
 import React, { Fragment, useEffect } from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
-// import { connect } from "react-redux";
 import { logout, loadUser } from "../../actions/authAction";
 import { clearVehicles } from "../../actions/vehicleAction";
 import { useDispatch, useSelector } from "react-redux";
 
-const Navbar = ({
-  title,
-  icon,
-  user
-}) => {
-  const dispatch = useDispatch()
+const Navbar = ({ title, icon, user }) => {
+  const dispatch = useDispatch();
   useEffect(() => {
     dispatch(loadUser());
     // eslint-disable-next-line
   }, []);
-  const auth = useSelector(state=>state.auth)
+  const auth = useSelector((state) => state.auth);
 
   const onLogout = () => {
     dispatch(logout());
@@ -64,12 +59,12 @@ const Navbar = ({
 
 Navbar.propTypes = {
   title: PropTypes.string.isRequired,
-  icon: PropTypes.string
+  icon: PropTypes.string,
 };
 
 Navbar.defaultProps = {
   title: "Vehicle Register",
-  icon: "fas fa-id-card-alt"
+  icon: "fas fa-id-card-alt",
 };
 
-export default Navbar
+export default Navbar;

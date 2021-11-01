@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Roboto');
+@import url("https://fonts.googleapis.com/css?family=Roboto");
 
 /* Global Styles */
 :root {
@@ -13,14 +13,6 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-}
-
-body {
-  font-family: 'Roboto', sans-serif;
-  font-size: 1rem;
-  line-height: 1.6;
-  background-color: #fff;
-  color: #333;
 }
 
 a {
@@ -42,10 +34,6 @@ img {
 
 /* Utilities */
 .container {
-  max-width: 1100px;
-  margin: auto;
-  overflow: hidden;
-  padding: 0 2rem;
 }
 
 /* Text Styles*/
@@ -304,10 +292,10 @@ input {
   color: #888;
 }
 
-input[type='text'],
-input[type='email'],
-input[type='password'],
-input[type='date'],
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="date"],
 select,
 textarea {
   display: block;
@@ -317,7 +305,7 @@ textarea {
   border: 1px solid #ccc;
 }
 
-input[type='submit'],
+input[type="submit"],
 button {
   font: inherit;
 }
@@ -363,7 +351,6 @@ table th {
   width: 100%;
   border-bottom: solid 1px var(--primary-color);
   opacity: 0.9;
-  margin-bottom: 1rem;
 }
 
 .navbar ul {
@@ -439,4 +426,26 @@ table th {
     text-align: center;
     justify-content: center;
   }
+}
+
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #001412;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #22d1ee;
+  border-radius: 12px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #68fff2;
+  border-radius: 12px;
 }
