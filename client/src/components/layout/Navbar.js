@@ -23,7 +23,7 @@ const Navbar = ({ title, icon }) => {
     <Fragment>
       <li>
         <Link to="/vehicles">
-          <span class="dd-buttonVehicle">Vehicles</span>
+          <span class="dd-buttonVehicle">Vehicle Registration</span>
         </Link>
       </li>
 

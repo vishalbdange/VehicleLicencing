@@ -18,15 +18,19 @@ const Dashboard = () => {
 
   useEffect(() => {
     dispatch(getVehicles());
-    // eslint-disable-next-line
   }, []);
 
   return (
     <>
       <div className="profile-container">
-        <div className="profile-title">Profile</div>
+        <div className="profile-title">Profile Detail</div>
         <div className="profile-details">Name: {auth?.user?.name}</div>
         <div className="profile-details">Email: {auth?.user?.email}</div>
+        <div className="profile-details">Mobile Number: 9874563210</div>
+        <div className="profile-details">Aadhar Card No: 7410258963012</div>
+        <div className="profile-details">
+          Address: Jijau Nagar, Pradhan Layout, Nalwadi, Wardha - 442001
+        </div>
         <div className="float-right">
           <button className="edit-button">Edit Profile</button>
         </div>
@@ -34,7 +38,44 @@ const Dashboard = () => {
       <div>
         <div>
           <div>
-            <h2>Vehicles Added by User</h2>
+            <h2>Vehicles Added by {auth?.user?.name}</h2>
+          </div>
+          <div className="card bg-light">
+            <h3 className="text-primary text-left">
+              <i className="fa fa-car"></i> 147852
+              <span className="badge badge-success">Approved</span>
+              <span style={{ float: "right" }} className="badge badge-success">
+                TATA
+              </span>
+            </h3>
+            <ul className="list">
+              <li>
+                <i className="fas fa-industry"></i>
+                <span style={{ marginRight: "3px" }}>Type:</span>4
+              </li>
+
+              <li>
+                <i className="fas fa-clock"></i>{" "}
+                <span style={{ marginRight: "5px" }}>Inspection date:</span>
+                2022-01-07
+              </li>
+
+              <li>
+                <i className="fas fa-file-signature"></i>{" "}
+                <span style={{ marginRight: "3px" }}>Owner's Name:</span>
+                {auth?.user?.name}
+              </li>
+
+              <li>
+                <i className="fas fa-building"></i>{" "}
+                <span style={{ marginRight: "3px" }}>Insurence Company:</span>
+                ICICI
+              </li>
+            </ul>
+            <p>
+              <button className="btn btn-dark btn-sm">Edit</button>
+              <button className="btn btn-danger btn-sm">Delete</button>
+            </p>
           </div>
           {vehicle.vehicles !== null && !auth.loading ? (
             <TransitionGroup>
@@ -63,22 +104,6 @@ const Dashboard = () => {
           )}
         </div>
       </div>
-      {/* <div id="login" class="modal fade" role="dialog">
-                <div class="modal-dialog">
-                    
-                    <div class="modal-content">
-                    <div class="modal-body">
-                        <button data-dismiss="modal" class="close">&times;</button>
-                        <h4>Login</h4>
-                        <form>
-                        <input type="text" name="username" class="username form-control" placeholder="Username"/>
-                        <input type="password" name="password" class="password form-control" placeholder="password"/>
-                        <input class="btn login" type="submit" value="Login" />
-                        </form>
-                    </div>
-                    </div>
-                </div>  
-            </div> */}
     </>
   );
 };
