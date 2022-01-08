@@ -2,7 +2,7 @@
 
 /* Global Styles */
 :root {
-  --primary-color: #78c2ad;
+  --primary-color: #0e153a;
   --dark-color: #333333;
   --light-color: #f4f4f4;
   --danger-color: #dc3545;
@@ -13,6 +13,8 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 a {
@@ -60,6 +62,7 @@ img {
 
 .text-primary {
   color: var(--primary-color);
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 .text-dark {
@@ -359,8 +362,9 @@ table th {
 
 .navbar a {
   color: #fff;
-  padding: 0.45rem;
+  padding: 0.1rem;
   margin: 0 0.25rem;
+  font-size: large;
 }
 
 .navbar a:hover {

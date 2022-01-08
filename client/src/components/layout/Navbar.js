@@ -5,13 +5,13 @@ import { logout, loadUser } from "../../actions/authAction";
 import { clearVehicles } from "../../actions/vehicleAction";
 import { useDispatch, useSelector } from "react-redux";
 import "./Navbar.css";
+import logo from "./logo.png";
 
 const Navbar = ({ title, icon }) => {
   const dispatch = useDispatch();
   const auth = useSelector((state) => state.auth);
   useEffect(() => {
     dispatch(loadUser());
-    // eslint-disable-next-line
   }, []);
 
   const onLogout = () => {
@@ -23,7 +23,7 @@ const Navbar = ({ title, icon }) => {
     <Fragment>
       <li>
         <Link to="/vehicles">
-          <span style={{ color: "#fff" }}>Vehicles</span>
+          <span class="dd-buttonVehicle">Vehicles</span>
         </Link>
       </li>
 
@@ -45,23 +45,7 @@ const Navbar = ({ title, icon }) => {
             </li>
           </ul>
         </label>
-        {/* <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-          Hello {auth.user && auth.user.name}
-        </a>
-
-        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-          <li><a class="dropdown-item" href="#">Dashboar</a></li>
-          <li><a class="dropdown-item" href="#">Logout</a></li>
-          <li><a class="dropdown-item" href="#">Something else here</a></li>
-        </ul> */}
       </li>
-
-      {/* <li>
-        <a onClick={onLogout} href="#!">
-          <i className="fas fa-sign-out-alt" />{" "}
-          <span className="hide-sm">Logout</span>
-        </a>
-      </li> */}
     </Fragment>
   );
 
@@ -78,9 +62,18 @@ const Navbar = ({ title, icon }) => {
 
   return (
     <div className="navbar bg-primary">
-      <h1>
-        <i className={icon} /> {title}
-      </h1>
+      <Link to="/">
+        <img
+          style={{
+            width: "250px",
+            margin: "0px 5px 0px 10px",
+            position: "centre",
+            transition: ".5s",
+          }}
+          src={logo}
+          alt="Drivehicle"
+        />
+      </Link>
       <ul>{auth.isAuthenticated ? authLinks : guestLinks}</ul>
     </div>
   );

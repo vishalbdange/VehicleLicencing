@@ -37,7 +37,7 @@ const AboutUs = () => {
                       <Paper className={classes.paper}>
                         <div>
                           <div>
-                            <Typography>
+                            <Typography style={{ color: "white" }}>
                               <Box
                                 fontWeight="800"
                                 fontSize={25}
@@ -48,7 +48,7 @@ const AboutUs = () => {
                             </Typography>
                           </div>
                           <div>
-                            <Typography>
+                            <Typography style={{ color: "white" }}>
                               <Box
                                 fontWeight="400"
                                 fontSize={15}

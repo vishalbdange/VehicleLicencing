@@ -13,7 +13,9 @@ const styles = makeStyles((theme) => ({
   paper: {
     padding: theme.spacing(2),
     textAlign: "center",
-    background: "#FED9B7",
+    background: "rgb(2,0,36)",
+    background:
+      "radial-gradient(circle, rgba(2,0,36,1) 0%, rgba(14,21,58,1) 50%, rgba(34,209,238,1) 100%)",
     "@media (max-width : 700px)": {
       margin: "5px auto",
     },
